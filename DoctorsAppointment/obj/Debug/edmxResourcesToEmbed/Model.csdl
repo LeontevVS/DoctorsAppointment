@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbDoctorsAppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AppointmentCard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DoctorId" Type="Int32" Nullable="false" />
+    <Property Name="PacientId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_AppointmentCards_Doctors" FromRole="AppointmentCards" ToRole="Doctors" />
+    <NavigationProperty Name="Pacient" Relationship="Self.FK_AppointmentCards_Pacients" FromRole="AppointmentCards" ToRole="Pacients" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AppointmentCards" Relationship="Self.FK_AppointmentCards_Doctors" FromRole="Doctors" ToRole="AppointmentCards" />
+  </EntityType>
+  <EntityType Name="Pacient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="AppointmentCards" Relationship="Self.FK_AppointmentCards_Pacients" FromRole="Pacients" ToRole="AppointmentCards" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AppointmentCards_Doctors">
+    <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="AppointmentCards" Type="Self.AppointmentCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppointmentCards">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppointmentCards_Pacients">
+    <End Role="Pacients" Type="Self.Pacient" Multiplicity="1" />
+    <End Role="AppointmentCards" Type="Self.AppointmentCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppointmentCards">
+        <PropertyRef Name="PacientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbDoctorsAppointmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppointmentCards" EntityType="Self.AppointmentCard" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="Pacients" EntityType="Self.Pacient" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_AppointmentCards_Doctors" Association="Self.FK_AppointmentCards_Doctors">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="AppointmentCards" EntitySet="AppointmentCards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppointmentCards_Pacients" Association="Self.FK_AppointmentCards_Pacients">
+      <End Role="Pacients" EntitySet="Pacients" />
+      <End Role="AppointmentCards" EntitySet="AppointmentCards" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,62 @@
+﻿<Window x:Class="DoctorsAppointment.CardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoctorsAppointment"
+        mc:Ignorable="d"
+        Title="CardWindow" Height="450" Width="800" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Запись к врачу" FontSize="40"
+                   Grid.ColumnSpan="5"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Дата" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Text="Пациент" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Text="Врач" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <DatePicker x:Name="dpBeginDate" SelectedDate="{Binding Date}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Height="25" FirstDayOfWeek="Monday" SelectedDateFormat="Long"/>
+        <TextBox x:Name="tbPacient" IsReadOnly="True" Text="{Binding Pacient.Name}" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Height="20"/>
+        <Button x:Name="btnChoicePacient" Grid.Row="3" Grid.Column="3" Height="20" Width="70" Content="Выбор" Click="btnChoicePacient_Click"/>
+        <TextBox x:Name="tbDoctor" IsReadOnly="True" Text="{Binding Doctor.Name}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Height="20"/>
+        <Button x:Name="btnChoiceDoctor" Grid.Row="4" Grid.Column="3" Height="20" Width="70" Content="Выбор" Click="btnChoiceDoctor_Click"/>
+        <StackPanel Grid.Row="9" 
+                    Height="30" 
+                    Grid.ColumnSpan="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Сохранить" 
+                    Width="100" 
+                    Height="30"
+                    x:Name="BtnSave" 
+                    Click="BtnSave_Click"
+                    Margin="0,0,5,0"/>
+            <Button Content="Закрыть" 
+                    Width="100" 
+                    Height="30"
+                    x:Name="BtnClose" 
+                    Click="BtnClose_Click"
+                    Margin="5,0,5,0"/>
+            <Button Content="Сохранить и закрыть" 
+                    Width="130" 
+                    Height="30"
+                    x:Name="BtnSaveAndClose" 
+                    Click="BtnSaveAndClose_Click"
+                    Margin="5,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
